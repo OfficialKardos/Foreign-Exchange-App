@@ -22,7 +22,7 @@
 
                     <div class="form-control" id="surplus_am">
                     </div>
-                    
+                    <br>
                     <div class="form-group" id="zar_am">
                     </div>
                     

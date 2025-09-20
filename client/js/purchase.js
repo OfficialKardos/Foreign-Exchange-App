@@ -55,8 +55,16 @@ $(document).ready(function () {
                 .text("Select Currency:")
         );
         dropdownContainer.append(select);
+        select.on("change", function () {
+            if ($("#foreign-amount").val() !== "" && $("#zar-amount").val() === "") {
+                calculateZAR();
+            } else if ($("#zar-amount").val() !== "" && $("#foreign-amount").val() === "") {
+                calculateCurrency();
+            } else {
+                Swal.fire("Error", "Please select either Foreign amount or ZAR amount to calculate.", "error");
+            }
+        });
 
-        select.on("change", calculateZAR);
     }
 
     // Build Foreign currency input
@@ -92,10 +100,9 @@ $(document).ready(function () {
             id: "zar-amount",
             name: "zar-amount",
             step: "0.01",
-            placeholder: "ZAR Amount",
+            placeholder: "or Enter ZAR Amount",
         })
-        .addClass("form-control")
-        .prop("readonly", true);
+        .addClass("form-control");
     zarContainer.append(zarLabel, zarInput);
 
     // Do Calculations
@@ -111,7 +118,6 @@ $(document).ready(function () {
 
         let exchangeRate = parseFloat(selectedOption.data("rate")) || 0;
         let surcharge = parseFloat(selectedOption.data("surcharge")) || 0;
-        let discount = parseFloat(selectedOption.data("discount")) || 0;
 
         // Calculate ZAR
         let amountZAR = foreignVal * exchangeRate;
@@ -121,7 +127,28 @@ $(document).ready(function () {
         $("#surcharge").text(surcharge.toFixed(2) + "%");
     }
 
+    function calculateCurrency() {
+        let selectedOption = $("#currencySelect option:selected");
+        let zarVal = parseFloat(zarInput.val()) || 0;
+
+        if (!selectedOption.val() || zarVal <= 0) {
+            foreignInput.val("");
+            $("#surcharge").text("0.00");
+            return;
+        }
+
+        let exchangeRate = parseFloat(selectedOption.data("rate")) || 0;
+        let surcharge = parseFloat(selectedOption.data("surcharge")) || 0;
+
+        let amountForeign = zarVal / exchangeRate;
+        amountForeign = amountForeign / (1 + surcharge / 100);
+
+        foreignInput.val(amountForeign.toFixed(2));
+        $("#surcharge").text(surcharge.toFixed(2) + "%");
+    }
+
     foreignInput.on("input", calculateZAR);
+    zarInput.on("input", calculateCurrency);
 
     //Submit Form
     $("#currency-form").on("submit", function (e) {
