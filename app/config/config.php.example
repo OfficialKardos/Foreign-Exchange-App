@@ -1,0 +1,20 @@
+<?php
+
+define('BASE_URL', 'http://localhost'); // BASE_URL
+
+define('DB_REQUIRED', true); // DB connection required?
+define('DB_TYPE', 'mysql'); // DB PDO type: mysql / sqlite / pgsql
+define('DB_HOST', 'localhost'); // hostname / ip of DB server
+define('DB_HOST_RO', 'localhost'); // hostname / ip of DB server
+define('DB_PORT', '3306');   // Database server port
+define('DB_USER', 'root'); // Database Username
+define('DB_PASS', ''); // Database Password
+define('DB_NAME', 'currencies'); // Database Name
+
+define('MAIL_HOST', 'sandbox.smtp.mailtrap.io'); // SMTP Host
+define('MAIL_PORT', 587); // SMTP Port
+define('MAIL_USER', ''); // SMTP username
+define('MAIL_PASS', ''); // SMTP Password
+
+define('EUR_DISCOUNT', '0.02'); //EU discount percentage
+define('JSON_RATES_KEY', ''); //jsonrates API KEY
