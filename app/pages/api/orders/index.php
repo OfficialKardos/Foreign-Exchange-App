@@ -47,8 +47,8 @@ if ($order_id = $order->create()) {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = MAIL_PORT;
 
-            $mail->setFrom('no-reply@example.com', 'Order System');
-            $mail->addAddress('admin@example.com'); // change to your recipient
+            $mail->setFrom('no-reply@currencies.com', 'Order System Foreign Currencies');
+            $mail->addAddress('karl@currencies.com');
 
             $mail->isHTML(true);
             $mail->Subject = 'New GBP Order';
