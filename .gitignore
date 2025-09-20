@@ -1,2 +1,8 @@
-logs
+# Ignore logs
+logs/
+
+# Ignore config file
 app/config/config.php
+
+# Ignore Composer vendor directory
+/vendor/
